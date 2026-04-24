@@ -6,10 +6,10 @@
     <title>Halk Sağlığı DHY Haritası</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
     <style>
-        body, html { margin: 0; padding: 0; font-family: 'Inter', 'Segoe UI', sans-serif; height: 100vh; width: 100vw; display: flex; overflow: hidden; background: #eef2f5; }
+        body, html { margin: 0; padding: 0; font-family: 'Inter', 'Segoe UI', sans-serif; height: 100vh; width: 100vw; display: flex; overflow: hidden; background: #f0f4f8; }
         
         body:not(.is-mobile) #sidebar { width: 380px; min-width: 380px; background: white; box-shadow: 3px 0 15px rgba(0,0,0,0.05); z-index: 1000; padding: 25px; display: flex; flex-direction: column; overflow-y: auto; position: relative; }
-        body:not(.is-mobile) #map { width: calc(100vw - 380px); height: 100vh; background: transparent; position: relative; }
+        body:not(.is-mobile) #map { width: calc(100vw - 380px); height: 100vh; background: #f0f4f8; position: relative; }
         
         h2 { margin-top: 0; font-size: 22px; color: #1e293b; border-bottom: 2px solid #f1f5f9; padding-bottom: 15px; margin-bottom: 25px; }
         
@@ -26,7 +26,7 @@
         .val-subtitle { font-size: 13px; color: #64748b; text-align: center; margin-bottom: 15px; min-height: 20px; }
         
         .slider-container { display: flex; align-items: center; justify-content: space-between; }
-        .slider-btn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid #cbd5e1; background: white; cursor: pointer; font-weight: bold; color: #334155; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+        .slider-btn { width: 36px; height: 36px; min-width: 36px; border-radius: 50%; border: 1px solid #cbd5e1; background: white; cursor: pointer; font-weight: bold; color: #334155; display: flex; align-items: center; justify-content: center; transition: 0.2s; flex-shrink: 0; }
         .slider-btn:hover { background: #f1f5f9; border-color: #94a3b8; }
         .slider-btn:active { transform: scale(0.95); }
         input[type=range] { flex-grow: 1; margin: 0 15px; cursor: pointer; accent-color: #2ecc71; }
@@ -36,7 +36,7 @@
         .month-btn:hover { background: #f1f5f9; border-color: #94a3b8; }
         .month-btn.active { background: #2ecc71; color: white; border-color: #2ecc71; box-shadow: 0 2px 6px rgba(46, 204, 113, 0.3); }
         
-        #total-stats { margin-top: auto; padding: 20px; background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0; text-align: center; }
+        #total-stats { margin-top: 15px; padding: 20px; background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0; text-align: center; }
         #stat-number { font-size: 32px; font-weight: 800; color: #2ecc71; display: block; margin: 5px 0; }
         
         /* City Labels on Map */
@@ -169,7 +169,7 @@
             bottom: auto !important; left: auto !important;
             width: 160px !important; min-width: 160px !important;
             height: 100vh !important; max-height: 100vh !important;
-            padding: 40px 8px 8px 8px !important;
+            padding: 32px 6px 16px 6px !important;
             box-sizing: border-box !important;
             border-radius: 12px 0 0 12px !important;
             box-shadow: -4px 0 16px rgba(0,0,0,0.12) !important;
@@ -193,12 +193,12 @@
         body.is-landscape label         { font-size: 9px; margin-bottom: 3px; letter-spacing: 0; }
         body.is-landscape .val-display  { font-size: 14px; margin-bottom: 2px; }
         body.is-landscape .val-subtitle { font-size: 9px; margin-bottom: 4px; min-height: auto; }
-        body.is-landscape .slider-container { gap: 2px; }
-        body.is-landscape .slider-btn   { width: 22px; height: 22px; font-size: 9px; }
-        body.is-landscape input[type=range] { margin: 0 4px; }
+        body.is-landscape .slider-container { gap: 2px; flex-wrap: nowrap; overflow: hidden; }
+        body.is-landscape .slider-btn   { width: 20px; height: 20px; min-width: 20px; font-size: 8px; flex-shrink: 0; }
+        body.is-landscape input[type=range] { margin: 0 2px; min-width: 0; flex: 1 1 0; }
         body.is-landscape .month-btn    { padding: 3px 1px; font-size: 8.5px; min-width: 24px; border-radius: 12px; }
         body.is-landscape .month-pills  { gap: 2px; margin-top: 3px; }
-        body.is-landscape #total-stats  { padding: 6px; margin-top: 4px; background: #f8fafc; border-radius: 8px; }
+        body.is-landscape #total-stats  { padding: 4px; margin-top: 4px; background: #f8fafc; border-radius: 8px; flex-shrink: 0; }
         body.is-landscape #total-stats > div:first-child { font-size: 9px; }
         body.is-landscape #stat-number  { font-size: 16px; }
         body.is-landscape #total-stats > div:last-child  { font-size: 10px; }
@@ -231,7 +231,6 @@
 
     <!-- DHY PANEL -->
     <div class="panel" id="panel-dhy" style="display: block;">
-        <label>Kurayı Seçin veya Kaydırın</label>
         <div class="val-display">DHY <span id="dhy-val">127</span></div>
         <div class="val-subtitle" id="dhy-subtitle"></div>
         <div class="slider-container">
@@ -243,7 +242,6 @@
 
     <!-- YEAR PANEL -->
     <div class="panel" id="panel-year">
-        <label>Yılı Kaydırın</label>
         <div class="val-display"><span id="year-val">2026</span></div>
         <div class="val-subtitle">Yıllık Dağılım</div>
         <div class="slider-container" style="margin-bottom: 20px;">
@@ -272,7 +270,7 @@
     </div>
 
     <div id="total-stats">
-        <div style="font-size:12px; font-weight:700; color:#64748b; text-transform:uppercase;">Ekranda Gösterilen Toplam Kadro</div>
+        <div style="font-size:12px; font-weight:700; color:#64748b; text-transform:uppercase;">Toplam</div>
         <span id="stat-number">0</span>
         <div style="font-size:13px; color:#94a3b8;">Birim / Kişi</div>
     </div>
@@ -317,6 +315,11 @@
     }
 
     const map = L.map('map', { zoomControl: false, minZoom: 5, maxZoom: 9 }).setView([39.0, 35.0], 6);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+        attribution: '',
+        subdomains: 'abcd',
+        maxZoom: 19
+    }).addTo(map);
     L.control.zoom({position: 'bottomright'}).addTo(map);
 
     let geojsonLayer;
