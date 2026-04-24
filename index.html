@@ -83,7 +83,7 @@
         #mobile-toggle.open { background: linear-gradient(135deg, #e74c3c, #c0392b); box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4); }
 
         /* --- SİHİRLİ MOBİL DOKUNUŞ --- */
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: 900px), screen and (max-height: 500px) {
             #mobile-toggle { display: flex; }
             body, html { flex-direction: column; }
             #sidebar { 
@@ -92,18 +92,20 @@
                 left: 0;
                 width: 100vw; 
                 min-width: 100vw; 
-                height: 55vh; 
-                max-height: 55vh;
-                padding: 18px 15px 80px 15px; 
+                height: 65vh; 
+                max-height: 65vh;
+                padding: 15px 15px 80px 15px; 
                 box-sizing: border-box; 
                 border-top: none;
                 box-shadow: 0 -8px 30px rgba(0,0,0,0.15);
                 border-radius: 20px 20px 0 0;
                 z-index: 1500;
-                transform: translateY(100%);
+                transform: translateY(120%);
                 transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
                 overflow-y: auto;
                 -webkit-overflow-scrolling: touch;
+                overscroll-behavior: contain;
+                background: white;
             }
             #sidebar.mobile-open { transform: translateY(0); }
             #map { 
@@ -113,8 +115,21 @@
                 top: 0;
                 left: 0;
             }
-            h2 { font-size: 17px; margin-bottom: 12px; padding-bottom: 8px; }
-            .tabs { margin-bottom: 15px; }
+            h2 { font-size: 17px; margin-bottom: 5px; padding-bottom: 5px; text-align: center; border-bottom: none; }
+            
+            /* SİHİRLİ DOKUNUŞ: Sekmeler (Tabs) yukarıya yapışsın (Sticky) böylece kaybolmasın */
+            .tabs { 
+                position: sticky; 
+                top: -15px; 
+                z-index: 1600; 
+                background: white; 
+                padding: 10px 0; 
+                margin-bottom: 15px; 
+                border: none;
+                border-bottom: 2px solid #e2e8f0;
+                border-radius: 0;
+            }
+            
             .tab-btn { padding: 10px 3px; font-size: 12px; }
             .panel { margin-bottom: 12px; }
             label { font-size: 11px; margin-bottom: 6px; }
@@ -122,23 +137,24 @@
             .val-subtitle { font-size: 12px; margin-bottom: 10px; }
             .slider-btn { width: 32px; height: 32px; }
             .month-btn { padding: 6px 3px; font-size: 10px; min-width: 36px; }
-            #total-stats { padding: 10px; margin-top: 10px; }
+            #total-stats { padding: 10px; margin-top: 10px; background: #f1f5f9; }
             #stat-number { font-size: 24px; }
             .city-label .name { font-size: 7px !important; }
             .city-label .val { font-size: 10px !important; }
             .city-label.active-label .name { font-size: 8px !important; }
             .city-label.active-label .val { font-size: 12px !important; }
-            .info-legend { font-size: 10px; padding: 8px; }
+            .info-legend { font-size: 10px; padding: 8px; bottom: 20px; }
             .info-legend i { width: 14px; height: 14px; }
         }
 
-        /* Yatay Telefonlar (Landscape) - ek ince ayar */
-        @media screen and (max-width: 768px) and (orientation: landscape) {
+        /* Yatay Telefonlar (Landscape) için ekstra yükseklik */
+        @media screen and (max-height: 500px) and (orientation: landscape) {
             #sidebar { 
-                height: 70vh; 
-                max-height: 70vh;
+                height: 85vh; 
+                max-height: 85vh;
             }
-            #sidebar.mobile-open { transform: translateY(0); }
+            .tabs { padding: 5px 0; }
+            h2 { display: none; } /* Yatayda yer kazanmak için başlığı gizle */
         }
     </style>
 </head>
