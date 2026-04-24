@@ -315,11 +315,6 @@
     }
 
     const map = L.map('map', { zoomControl: false, minZoom: 5, maxZoom: 9 }).setView([39.0, 35.0], 6);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
-        attribution: '',
-        subdomains: 'abcd',
-        maxZoom: 19
-    }).addTo(map);
     L.control.zoom({position: 'bottomright'}).addTo(map);
 
     let geojsonLayer;
@@ -496,13 +491,15 @@
             let val = layer.feature.properties.currentVal;
             let name = layer.feature.properties.name;
             
+            // Sadece kadro açılan illerin ismini göster
+            if (val <= 0) return;
+            
             if (layer.getBounds) {
                 try {
                     let center = layer.getBounds().getCenter();
-                    let isActive = val > 0 ? 'active-label' : '';
-                    let labelHtml = `<div class="city-label ${isActive}">
+                    let labelHtml = `<div class="city-label active-label">
                         <div class="name">${name}</div>
-                        <div class="val">${val > 0 ? val : ''}</div>
+                        <div class="val">${val}</div>
                     </div>`;
                     
                     let icon = L.divIcon({
