@@ -792,7 +792,7 @@
                 let v=ft.properties.currentVal;
                 let p='<div class="popup-header"><h3>'+ft.properties.name+'</h3>';
                 if(v===0) p+='<div style="color:#e74c3c;font-weight:bold;margin-top:4px;">Kayıt Yok</div></div>';
-                else { p+='<div style="color:#58d68d;font-weight:bold;margin-top:4px;">'+v+' Kadro</div></div><div class="popup-content"><ul>'; ft.properties.currentRecords.forEach(r=>{ p+='<li><b>DHY '+r.dhy+'</b> ('+r.month+' '+r.year+') <strong style="float:right;color:#58d68d;">'+r.sayi+'</strong><br><span style="color:#333;">'+r.birim+'</span></li>'; }); p+='</ul></div>'; }
+                else { p+='<div style="color:#58d68d;font-weight:bold;margin-top:4px;">'+v+' Kadro</div></div><div class="popup-content"><ul>'; let sortedRecs = ft.properties.currentRecords.sort((a,b) => b.dhy - a.dhy); sortedRecs.forEach(r=>{ p+='<li><b>DHY '+r.dhy+'</b> ('+r.month+' '+r.year+') <strong style="float:right;color:#58d68d;">'+r.sayi+'</strong><br><span style="color:#333;">'+r.birim+'</span></li>'; }); p+='</ul></div>'; }
                 ly.bindPopup(p, {maxWidth:280,minWidth:180});
             }
         }).addTo(mapObj);
